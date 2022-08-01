@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% block title %} Rafa's Website - View List {% endblock %}
+
+{% block content %}
+    <h1>{{ ls.name }}</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for item in ls.item_set.all %}
+        <div class="input-group mb-3">
+                <div class="input-group-text">
+                    {% if item.complete == True %}
+                        <input type="checkbox" name="c{{ item.id }}" class="form-check-input mb-0" value="clicked" checked>
+                    {% else %}
+                        <input type="checkbox" name="c{{ item.id }}" class="form-check-input mb-0" value="clicked">
+                    {% endif %}
+                </div>
+            <input type="text" name="itemText" value="{{ item.text }}" class="form-control">
+        </div>
+        {% endfor %}
+
+        <div class="input-group mb-3">
+            <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add Item</button>
+            <input type="text" name="itemInput" id="itemInput">
+        </div>
+
+
+        <button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+    </form>
+{% endblock %}
